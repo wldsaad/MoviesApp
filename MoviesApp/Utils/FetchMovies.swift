@@ -29,6 +29,25 @@ class FetchMovies {
             } 
         }.resume()
     }
+    
+    
+    func getLatestMovie(withURL url: String, completion: @escaping (Movie) -> Void) {
+        var movie = Movie()
+        let url = URL(string: url)
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            do {
+                movie = try JSONDecoder().decode(Movie.self, from: data)
+                completion(movie)
+            } catch {
+                debugPrint(error.localizedDescription)
+                completion(Movie())
+            }
+            
+        }.resume()
+    }
 }
 
 

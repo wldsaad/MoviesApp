@@ -14,16 +14,13 @@ class MainVC: UIViewController {
     
     private var headerView: HeaderXibView?
     
-    //Popular
-    //https://api.themoviedb.org/3/movie/popular?api_key=0dc10071306ea9f2cc725427fb124f8a&language=en-US&page=1
+    private var fetchMovies = FetchMovies()
     
-    
-    //Upcoming
-    //https://api.themoviedb.org/3/movie/upcoming?api_key=0dc10071306ea9f2cc725427fb124f8a&language=en-US&page=1
-    
-
     private let popularURLString = "https://api.themoviedb.org/3/movie/popular?api_key=\(Constants.API_KEY)&language=en-US&page=1"
     private let upcomingURLString = "https://api.themoviedb.org/3/movie/upcoming?api_key=\(Constants.API_KEY)&language=en-US&page=1"
+    private let nowPlayingURLString = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(Constants.API_KEY)&language=en-US&page=1"
+    private let topRatedURLString = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(Constants.API_KEY)&language=en-US&page=1"
+    private let latestURLString = "https://api.themoviedb.org/3/movie/latest?api_key=\(Constants.API_KEY)&language=en-US"
 
     private var sections = [
         Section(name: "Popular", isExpanded: true, movies: [Movie]()),
@@ -38,30 +35,61 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         getPopularMovies()
         getUpcomingMovies()
-        
+        getNowPlayingMovies()
+        getTopRatedMovies()
+        getLatestMovie()
+
     }
     
     private func getPopularMovies(){
-        FetchMovies().getMovies(withURL: popularURLString) { (movies) in
+        fetchMovies.getMovies(withURL: popularURLString) { (movies) in
             let section = 0
             self.sections[section].movies = movies
             DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .left)
+                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .none)
             }
         }
     }
     
     private func getUpcomingMovies(){
-        FetchMovies().getMovies(withURL: upcomingURLString) { (movies) in
+        fetchMovies.getMovies(withURL: upcomingURLString) { (movies) in
             let section = 1
             self.sections[section].movies = movies
             DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .left)
+                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .none)
             }
         }
     }
 
-
+    private func getNowPlayingMovies(){
+        fetchMovies.getMovies(withURL: nowPlayingURLString) { (movies) in
+            let section = 2
+            self.sections[section].movies = movies
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .none)
+            }
+        }
+    }
+    
+    private func getTopRatedMovies(){
+        fetchMovies.getMovies(withURL: topRatedURLString) { (movies) in
+            let section = 3
+            self.sections[section].movies = movies
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .none)
+            }
+        }
+    }
+    
+    private func getLatestMovie(){
+        fetchMovies.getLatestMovie(withURL: latestURLString) { (movie) in
+            let section = 4
+            self.sections[section].movies.append(movie)
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(arrayLiteral: section), with: .none)
+            }
+        }
+    }
 }
 
 extension MainVC: UITableViewDataSource {
@@ -133,6 +161,12 @@ extension MainVC: UICollectionViewDataSource {
             return sections[0].movies.count
         } else if collectionView.tag == 1 {
             return sections[1].movies.count
+        } else if collectionView.tag == 2 {
+            return sections[2].movies.count
+        } else if collectionView.tag == 3 {
+            return sections[3].movies.count
+        } else if collectionView.tag == 4 {
+            return sections[4].movies.count
         } else {
             return 0
         }
@@ -144,6 +178,12 @@ extension MainVC: UICollectionViewDataSource {
                 cell.updateCellView(movie: sections[0].movies[indexPath.row])
             } else if collectionView.tag == 1 {
                 cell.updateCellView(movie: sections[1].movies[indexPath.row])
+            } else if collectionView.tag == 2 {
+                cell.updateCellView(movie: sections[2].movies[indexPath.row])
+            } else if collectionView.tag == 3 {
+                cell.updateCellView(movie: sections[3].movies[indexPath.row])
+            } else if collectionView.tag == 4 {
+                cell.updateCellView(movie: sections[4].movies[indexPath.row])
             }
             
             return cell
