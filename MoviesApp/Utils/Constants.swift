@@ -10,5 +10,5 @@ import UIKit
 
 struct Constants {
     static let SECTION_HEIGHT: CGFloat = 40
-
+    static let API_KEY = "0dc10071306ea9f2cc725427fb124f8a"
 }

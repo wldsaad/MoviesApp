@@ -22,6 +22,8 @@
 		9A3F1B2C21F8BCEC00715718 /* HeaderXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B2B21F8BCEC00715718 /* HeaderXibView.swift */; };
 		9A3F1B2E21F8C6FD00715718 /* MovieXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3F1B2D21F8C6FD00715718 /* MovieXib.xib */; };
 		9A3F1B3021F8C7C600715718 /* MovieXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B2F21F8C7C600715718 /* MovieXibView.swift */; };
+		9A3F1B3221F8D4DB00715718 /* FetchMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B3121F8D4DB00715718 /* FetchMovies.swift */; };
+		9A3F1B3421F8D62300715718 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B3321F8D62300715718 /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		9A3F1B2B21F8BCEC00715718 /* HeaderXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderXibView.swift; sourceTree = "<group>"; };
 		9A3F1B2D21F8C6FD00715718 /* MovieXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieXib.xib; sourceTree = "<group>"; };
 		9A3F1B2F21F8C7C600715718 /* MovieXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieXibView.swift; sourceTree = "<group>"; };
+		9A3F1B3121F8D4DB00715718 /* FetchMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMovies.swift; sourceTree = "<group>"; };
+		9A3F1B3321F8D62300715718 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				9A3F1B2921F8BC3400715718 /* Section.swift */,
+				9A3F1B3321F8D62300715718 /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				9A3F1B2721F8BBD600715718 /* Constants.swift */,
+				9A3F1B3121F8D4DB00715718 /* FetchMovies.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 			files = (
 				9A3F1B0D21F8B5C700715718 /* MoviesApp.xcdatamodeld in Sources */,
 				9A3F1B2021F8B71000715718 /* MyTableRowCell.swift in Sources */,
+				9A3F1B3421F8D62300715718 /* Movie.swift in Sources */,
 				9A3F1B2421F8B73800715718 /* MovieCell.swift in Sources */,
 				9A3F1B0721F8B5C700715718 /* MainVC.swift in Sources */,
 				9A3F1B2821F8BBD600715718 /* Constants.swift in Sources */,
@@ -225,6 +232,7 @@
 				9A3F1B2221F8B71E00715718 /* MyTableSectionCell.swift in Sources */,
 				9A3F1B2C21F8BCEC00715718 /* HeaderXibView.swift in Sources */,
 				9A3F1B3021F8C7C600715718 /* MovieXibView.swift in Sources */,
+				9A3F1B3221F8D4DB00715718 /* FetchMovies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,8 +16,11 @@ class MyTableRowCell: UITableViewCell {
         // Initialization code
     }
 
-    func initCollectionView<DataSource: UICollectionViewDataSource, Delegate: UICollectionViewDelegate>(dataSource: DataSource, delegate: Delegate) {
+    func initCollectionView<DataSource: UICollectionViewDataSource, Delegate: UICollectionViewDelegate>(dataSource: DataSource, delegate: Delegate, forSection section: Int) {
+        
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
+        collectionView.tag = section
+        collectionView.reloadData()
     }
 }

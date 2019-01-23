@@ -24,6 +24,16 @@ class MovieCell: UICollectionViewCell {
         }
     }
     
-    
+    func updateCellView(movie: Movie) {
+        guard let moviePosterPath = movie.poster_path else {
+            return
+        }
+        let imageURLString = "http://image.tmdb.org/t/p/w185/\(moviePosterPath)"
+        let imageURL = URL(string: imageURLString)
+        if let imageData = try? Data(contentsOf: imageURL!) {
+            self.movieView?.movieImageView.image = UIImage(data: imageData)
+        }
+        
+    }
     
 }

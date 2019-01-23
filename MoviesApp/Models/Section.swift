@@ -11,4 +11,5 @@ import Foundation
 struct Section {
     var name: String
     var isExpanded: Bool
+    var movies: [Movie]
 }
