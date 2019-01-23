@@ -24,7 +24,8 @@ class MainVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = UITableView.automaticDimension
     }
 
 
@@ -43,6 +44,7 @@ extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "myRowCell", for: indexPath) as? MyTableRowCell {
+            cell.initCollectionView(dataSource: self, delegate: self)
             return cell
         }
         return MyTableRowCell()
@@ -59,6 +61,7 @@ extension MainVC: UITableViewDelegate {
         headerView = Bundle.main.loadNibNamed("HeaderXib", owner: self, options: nil)?.first as? HeaderXibView
         headerView?.nameLabel.text = sections[section].name
         headerView?.expandButton.tag = section
+        headerView?.expandButton.imageView?.image = sections[section].isExpanded ? UIImage(named: "up_arrow") : UIImage(named: "down_arrow")
         headerView?.expandButton.addTarget(self, action: #selector(expandToggle(expandButton:)), for: .touchUpInside)
         if headerView != nil {
             return headerView!
@@ -75,9 +78,35 @@ extension MainVC: UITableViewDelegate {
         } else {
             tableView.insertRows(at: [indexPath], with: .fade)
         }
-        
+        let currentIndexSet = IndexSet(arrayLiteral: currentSection)
+        tableView.reloadSections(currentIndexSet, with: .none)
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return Constants.SECTION_HEIGHT
+    }
+}
+
+extension MainVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as? MovieCell {
+            return cell
+        }
+        return MovieCell()
+    }
+}
+
+extension MainVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        debugPrint(indexPath)
+    }
+}
+
+extension MainVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3, height: 140)
     }
 }

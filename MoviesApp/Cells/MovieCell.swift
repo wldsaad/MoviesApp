@@ -10,4 +10,20 @@ import UIKit
 
 class MovieCell: UICollectionViewCell {
     
+    private var movieView: MovieXibView?
+    
+    override func awakeFromNib() {
+        initCell()
+    }
+    
+    private func initCell() {
+        movieView = Bundle.main.loadNibNamed("MovieXib", owner: self, options: nil)?.first as? MovieXibView
+        movieView?.frame = self.frame
+        if movieView != nil {
+            self.addSubview(movieView!)
+        }
+    }
+    
+    
+    
 }

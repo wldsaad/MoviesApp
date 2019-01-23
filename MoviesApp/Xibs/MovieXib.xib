@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.15" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.9"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MovieXibView" customModule="MoviesApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uYX-wa-dpe">
+                    <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uYX-wa-dpe" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="6yR-I0-chX"/>
+                <constraint firstItem="uYX-wa-dpe" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="9q8-M4-CG4"/>
+                <constraint firstItem="uYX-wa-dpe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Jdu-MW-TrL"/>
+                <constraint firstItem="uYX-wa-dpe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="VNO-vX-FO1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="movieImageView" destination="uYX-wa-dpe" id="EQ7-04-oUv"/>
+            </connections>
+            <point key="canvasLocation" x="-57.600000000000001" y="379.61019490254876"/>
+        </view>
+    </objects>
+</document>
