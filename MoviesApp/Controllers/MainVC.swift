@@ -135,9 +135,9 @@ extension MainVC: UITableViewDelegate {
         let indexPath = IndexPath(row: 0, section: currentSection)
         sections[currentSection].isExpanded = !sections[currentSection].isExpanded
         if !sections[currentSection].isExpanded {
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.deleteRows(at: [indexPath], with: .right)
         } else {
-            tableView.insertRows(at: [indexPath], with: .fade)
+            tableView.insertRows(at: [indexPath], with: .left)
         }
         let currentIndexSet = IndexSet(arrayLiteral: currentSection)
         tableView.reloadSections(currentIndexSet, with: .none)
@@ -194,8 +194,23 @@ extension MainVC: UICollectionViewDataSource {
 
 extension MainVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        debugPrint(collectionView.tag)
+        let movie = sections[collectionView.tag].movies[indexPath.row]
+        performSegue(withIdentifier: "detailSegue", sender: movie)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailVC = segue.destination as? DetailVC {
+            guard let movie = sender as? Movie else {
+                return
+            }
+            if let id = movie.id, let title = movie.original_title, let poster = movie.poster_path, let thumbnail = movie.backdrop_path, let vote = movie.vote_average, let plot = movie.overview, let year = movie.release_date {
+                detailVC.selectMovie(id: id, title: title, poster: "http://image.tmdb.org/t/p/w185/\(poster)", thumbnail: "http://image.tmdb.org/t/p/w500/\(thumbnail)", vote: vote, plot: plot, year: year)
+            }
+            
+        }
+    }
+    
+    
 }
 
 extension MainVC: UICollectionViewDelegateFlowLayout {

@@ -24,6 +24,8 @@
 		9A3F1B3021F8C7C600715718 /* MovieXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B2F21F8C7C600715718 /* MovieXibView.swift */; };
 		9A3F1B3221F8D4DB00715718 /* FetchMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B3121F8D4DB00715718 /* FetchMovies.swift */; };
 		9A3F1B3421F8D62300715718 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F1B3321F8D62300715718 /* Movie.swift */; };
+		9A69985B21F9129E009FED08 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A69985A21F9129E009FED08 /* DetailVC.swift */; };
+		9A831D9821F922B90042CF9B /* DelegateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A831D9721F922B90042CF9B /* DelegateProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		9A3F1B2F21F8C7C600715718 /* MovieXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieXibView.swift; sourceTree = "<group>"; };
 		9A3F1B3121F8D4DB00715718 /* FetchMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMovies.swift; sourceTree = "<group>"; };
 		9A3F1B3321F8D62300715718 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		9A69985A21F9129E009FED08 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		9A831D9721F922B90042CF9B /* DelegateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				9A3F1B0621F8B5C700715718 /* MainVC.swift */,
+				9A69985A21F9129E009FED08 /* DetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			children = (
 				9A3F1B2721F8BBD600715718 /* Constants.swift */,
 				9A3F1B3121F8D4DB00715718 /* FetchMovies.swift */,
+				9A831D9721F922B90042CF9B /* DelegateProtocols.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -223,9 +229,11 @@
 			files = (
 				9A3F1B0D21F8B5C700715718 /* MoviesApp.xcdatamodeld in Sources */,
 				9A3F1B2021F8B71000715718 /* MyTableRowCell.swift in Sources */,
+				9A69985B21F9129E009FED08 /* DetailVC.swift in Sources */,
 				9A3F1B3421F8D62300715718 /* Movie.swift in Sources */,
 				9A3F1B2421F8B73800715718 /* MovieCell.swift in Sources */,
 				9A3F1B0721F8B5C700715718 /* MainVC.swift in Sources */,
+				9A831D9821F922B90042CF9B /* DelegateProtocols.swift in Sources */,
 				9A3F1B2821F8BBD600715718 /* Constants.swift in Sources */,
 				9A3F1B2A21F8BC3400715718 /* Section.swift in Sources */,
 				9A3F1B0521F8B5C700715718 /* AppDelegate.swift in Sources */,
