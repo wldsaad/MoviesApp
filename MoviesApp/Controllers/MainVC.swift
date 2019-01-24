@@ -11,7 +11,8 @@ import UIKit
 class MainVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBAction func UNWIND(segue: UIStoryboardSegue) {
+    }
     private var headerView: HeaderXibView?
     
     private var fetchMovies = FetchMovies()
@@ -91,6 +92,11 @@ class MainVC: UIViewController {
             }
         }
     }
+    
+    @IBAction func showFavoritesAction(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "favSegue", sender: nil)
+    }
+    
 }
 
 extension MainVC: UITableViewDataSource {
