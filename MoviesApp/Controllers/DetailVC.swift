@@ -55,6 +55,7 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         }
     }
    
+    @IBOutlet weak var favButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,13 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         navigationItem.title = movieTitle
     }
     
-
+    @IBAction func handleFavAction(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.3) {
+            sender.tintColor = sender.tag == 0 ? #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1) : #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
+            sender.tag = sender.tag == 0 ? 1 : 0
+        }
+    }
+    
     
     @IBAction func playAction(_ sender: UIButton) {
         debugPrint("Played...")

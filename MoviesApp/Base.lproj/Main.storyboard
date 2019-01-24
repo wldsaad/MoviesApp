@@ -187,12 +187,25 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ytn-rj-Qgs">
+                                                <rect key="frame" x="309" y="195" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ytn-rj-Qgs" secondAttribute="height" multiplier="1:1" id="u4j-2Y-aCC"/>
+                                                    <constraint firstAttribute="width" constant="50" id="wD6-7D-nNR"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="heart"/>
+                                                <connections>
+                                                    <action selector="handleFavAction:" destination="0NG-NO-hxG" eventType="touchUpInside" id="KAb-VL-6Bw"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ZoB-rR-gSs" firstAttribute="leading" secondItem="edX-Yb-R2E" secondAttribute="leading" id="20u-tn-qeH"/>
                                             <constraint firstAttribute="trailing" secondItem="edX-Yb-R2E" secondAttribute="trailing" constant="8" id="AC0-zL-hHm"/>
                                             <constraint firstItem="nBI-0m-cn2" firstAttribute="leading" secondItem="ZoB-rR-gSs" secondAttribute="trailing" constant="4" id="Ewu-AF-Vmi"/>
+                                            <constraint firstAttribute="trailing" secondItem="ytn-rj-Qgs" secondAttribute="trailing" constant="16" id="JPI-o7-Hv6"/>
                                             <constraint firstItem="tfp-bD-ukd" firstAttribute="centerY" secondItem="Cb4-ol-OU8" secondAttribute="centerY" id="ME6-Qr-6Og"/>
                                             <constraint firstItem="bdF-Rt-dkA" firstAttribute="leading" secondItem="4Jn-BX-DyZ" secondAttribute="leading" constant="8" id="Mte-UQ-3cY"/>
                                             <constraint firstItem="VPj-OM-5Ku" firstAttribute="top" secondItem="ZoB-rR-gSs" secondAttribute="bottom" constant="24" id="Nn5-W3-B1A"/>
@@ -203,6 +216,7 @@
                                             <constraint firstItem="VPj-OM-5Ku" firstAttribute="leading" secondItem="GxI-00-GwE" secondAttribute="leading" id="XVI-Z5-2K1"/>
                                             <constraint firstItem="GxI-00-GwE" firstAttribute="leading" secondItem="4Jn-BX-DyZ" secondAttribute="leading" constant="8" id="XrE-nB-d0A"/>
                                             <constraint firstItem="nBI-0m-cn2" firstAttribute="bottom" secondItem="ZoB-rR-gSs" secondAttribute="bottom" id="bSi-lh-7pq"/>
+                                            <constraint firstItem="ytn-rj-Qgs" firstAttribute="top" secondItem="Cb4-ol-OU8" secondAttribute="bottom" constant="-25" id="f1i-Vv-TX6"/>
                                             <constraint firstItem="tfp-bD-ukd" firstAttribute="centerX" secondItem="Cb4-ol-OU8" secondAttribute="centerX" id="iOT-ms-F8B"/>
                                             <constraint firstItem="Cb4-ol-OU8" firstAttribute="top" secondItem="4Jn-BX-DyZ" secondAttribute="top" id="jeg-YW-czb"/>
                                             <constraint firstItem="76i-BR-hzU" firstAttribute="top" secondItem="edX-Yb-R2E" secondAttribute="bottom" constant="-1.5" id="l5X-oM-UsY"/>
@@ -238,6 +252,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="1500"/>
                     <connections>
+                        <outlet property="favButton" destination="ytn-rj-Qgs" id="rE2-tg-bBT"/>
                         <outlet property="plotLabel" destination="VPj-OM-5Ku" id="iwa-98-OHE"/>
                         <outlet property="posterImageview" destination="Cb4-ol-OU8" id="cr6-oI-cp2"/>
                         <outlet property="ratingLabel" destination="ZoB-rR-gSs" id="QLs-Zh-RvK"/>
@@ -308,6 +323,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="heart" width="512" height="512"/>
         <image name="play" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
