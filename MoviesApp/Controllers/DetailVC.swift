@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class DetailVC: UIViewController, SelectMovieDelegate {
     
-    private var id: String?
+    private var id: String? {
+        didSet {
+            loadMovieByID(id: id!)
+        }
+    }
     private var movieTitle: String?
     private var poster: String?
     private var thumbnail: String?
@@ -57,17 +62,88 @@ class DetailVC: UIViewController, SelectMovieDelegate {
    
     @IBOutlet weak var favButton: UIButton!
     
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    private var selectedMovie: MyMovie?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = movieTitle
+        handleFavButtonState()
+        
+    }
+    
+    private func loadMovieByID(id: String) {
+        let request: NSFetchRequest<MyMovie> = MyMovie.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        request.predicate = predicate
+        request.fetchLimit = 1
+        do {
+            let movies = try context.fetch(request)
+            if movies.count > 0 {
+                self.selectedMovie = movies[0]
+            }
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+    }
+    
+    private func handleFavButtonState() {
+        if selectedMovie != nil {
+            favButton.tag = 1
+            favButton.tintColor = #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1)
+        } else {
+            favButton.tag = 0
+            favButton.tintColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
+        }
     }
     
     @IBAction func handleFavAction(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3) {
-            sender.tintColor = sender.tag == 0 ? #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1) : #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
-            sender.tag = sender.tag == 0 ? 1 : 0
+
+        if sender.tag == 1 {
+            deleteMovie(movie: selectedMovie!)
+            UIView.animate(withDuration: 0.3) {
+                sender.tintColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
+                sender.tag = 0
+            }
+            return
         }
+        let movie = MyMovie(context: context)
+        movie.id = id
+        movie.backdrop_path = thumbnail
+        movie.original_title = movieTitle
+        movie.overview = plot
+        movie.poster_path = poster
+        movie.release_date = year
+        movie.vote_average = vote
+        saveMovie(movie: movie)
+        UIView.animate(withDuration: 0.3) {
+            sender.tintColor = #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1)
+            sender.tag = 1
+        }
+        
+        
+    }
+    
+    private func deleteMovie(movie: MyMovie) {
+        do {
+            context.delete(movie)
+            try context.save()
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+        
+       
+    }
+    
+    private func saveMovie(movie: MyMovie){
+        do {
+            try context.save()
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+        
     }
     
     
