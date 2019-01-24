@@ -11,10 +11,7 @@ import UIKit
 class MyTableRowCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    
 
     func initCollectionView<DataSource: UICollectionViewDataSource, Delegate: UICollectionViewDelegate>(dataSource: DataSource, delegate: Delegate, forSection section: Int) {
         

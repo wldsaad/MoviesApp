@@ -38,6 +38,9 @@ class MainVC: UIViewController {
         getNowPlayingMovies()
         getTopRatedMovies()
         getLatestMovie()
+        
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        print(paths[0])
 
     }
     
@@ -200,13 +203,7 @@ extension MainVC: UICollectionViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailVC = segue.destination as? DetailVC {
-            guard let movie = sender as? Movie else {
-                return
-            }
-            if let id = movie.id, let title = movie.original_title, let poster = movie.poster_path, let thumbnail = movie.backdrop_path, let vote = movie.vote_average, let plot = movie.overview, let year = movie.release_date {
-                detailVC.selectMovie(id: id, title: title, poster: "http://image.tmdb.org/t/p/w185/\(poster)", thumbnail: "http://image.tmdb.org/t/p/w500/\(thumbnail)", vote: vote, plot: plot, year: year)
-            }
-            
+            detailVC.updateID(id: "\((sender as! Movie).id!)")
         }
     }
     

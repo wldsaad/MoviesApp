@@ -48,6 +48,25 @@ class FetchMovies {
             
         }.resume()
     }
+    
+    func getMovieByID(id: String, completion: @escaping (Movie) -> Void) {
+        var movie = Movie()
+        let urlString = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Constants.API_KEY)&language=en-US"
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            do {
+                movie = try JSONDecoder().decode(Movie.self, from: data)
+                completion(movie)
+            } catch {
+                debugPrint(error.localizedDescription)
+                completion(Movie())
+            }
+            
+            }.resume()
+    }
 }
 
 

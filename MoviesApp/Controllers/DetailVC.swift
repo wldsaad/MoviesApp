@@ -11,70 +11,52 @@ import CoreData
 
 class DetailVC: UIViewController, SelectMovieDelegate {
     
-    private var id: String? {
-        didSet {
-            loadMovieByID(id: id!)
-        }
-    }
+    private var id: String?
     private var movieTitle: String?
     private var poster: String?
     private var thumbnail: String?
     private var vote: String?
     private var plot: String?
     private var year: String?
-
-    @IBOutlet weak var posterImageview: UIImageView! {
-        didSet {
-            let posterURL = URL(string: poster!)
-            if let posterData = try? Data(contentsOf: posterURL!) {
-                posterImageview.image = UIImage(data: posterData)
-            }
-        }
-    }
-    @IBOutlet weak var thumbnailImageView: UIImageView! {
-        didSet {
-            let thumbnailURL = URL(string: thumbnail!)
-            if let thumbnailData = try? Data(contentsOf: thumbnailURL!) {
-                thumbnailImageView.image = UIImage(data: thumbnailData)
-            }
-        }
-    }
-    @IBOutlet weak var titleLabel: UILabel! {
-        didSet {
-            titleLabel.text = movieTitle
-        }
-    }
-    @IBOutlet weak var yearLabel: UILabel! {
-        didSet {
-            yearLabel.text = year
-        }
-    }
-    @IBOutlet weak var ratingLabel: UILabel! {
-        didSet {
-            ratingLabel.text = vote
-        }
-    }
-    @IBOutlet weak var plotLabel: UILabel! {
-        didSet {
-            plotLabel.text = plot
-        }
-    }
-   
+    @IBOutlet weak var posterImageview: UIImageView!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var plotLabel: UILabel!
     @IBOutlet weak var favButton: UIButton!
-    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     private var selectedMovie: MyMovie?
+    private var currentMovie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = movieTitle
-        handleFavButtonState()
+        loadMovieByID(id: id!)
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkFav(id: id!)
+
+    }
+    
+    
+    private func loadMovieByID(id: String) {
+        
+        FetchMovies().getMovieByID(id: id) { (movie) in
+            self.currentMovie = movie
+            DispatchQueue.main.async {
+                self.updateViews(movie: self.currentMovie!)
+            }
+            self.checkFav(id: id)
+        }
         
     }
     
-    private func loadMovieByID(id: String) {
+    private func checkFav(id: String) {
         let request: NSFetchRequest<MyMovie> = MyMovie.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
         request.predicate = predicate
@@ -83,7 +65,16 @@ class DetailVC: UIViewController, SelectMovieDelegate {
             let movies = try context.fetch(request)
             if movies.count > 0 {
                 self.selectedMovie = movies[0]
+                DispatchQueue.main.async {
+                    self.handleFavButtonState()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.favButton.tag = 0
+                    self.favButton.tintColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
+                }
             }
+            
         } catch {
             debugPrint(error.localizedDescription)
         }
@@ -91,16 +82,17 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     
     private func handleFavButtonState() {
         if selectedMovie != nil {
-            favButton.tag = 1
-            favButton.tintColor = #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1)
+            self.favButton.tag = 1
+            self.favButton.tintColor = #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1)
         } else {
-            favButton.tag = 0
-            favButton.tintColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
+            self.favButton.tag = 0
+            self.favButton.tintColor = #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1)
         }
     }
     
     @IBAction func handleFavAction(_ sender: UIButton) {
 
+        
         if sender.tag == 1 {
             deleteMovie(movie: selectedMovie!)
             UIView.animate(withDuration: 0.3) {
@@ -110,13 +102,13 @@ class DetailVC: UIViewController, SelectMovieDelegate {
             return
         }
         let movie = MyMovie(context: context)
-        movie.id = id
-        movie.backdrop_path = thumbnail
-        movie.original_title = movieTitle
-        movie.overview = plot
-        movie.poster_path = poster
-        movie.release_date = year
-        movie.vote_average = vote
+        if let movieID = currentMovie?.id {
+            movie.id = String(movieID)
+        }
+        movie.title = currentMovie?.original_title
+        if let imageURLString = currentMovie?.poster_path {
+            movie.image = "http://image.tmdb.org/t/p/w185/\(imageURLString)"
+        }
         saveMovie(movie: movie)
         UIView.animate(withDuration: 0.3) {
             sender.tintColor = #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1)
@@ -159,6 +151,30 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         self.vote = String(vote)
         self.plot = plot
         self.year = String(year.prefix(4))
+    }
+    
+    private func updateViews(movie: Movie){
+
+        let posterString = "http://image.tmdb.org/t/p/w185/\(movie.poster_path!)"
+        let thumbnailString = "http://image.tmdb.org/t/p/w185/\(movie.backdrop_path!)"
+        let posterURL = URL(string: posterString)
+        if let posterData = try? Data(contentsOf: posterURL!) {
+            posterImageview.image = UIImage(data: posterData)
+        }
+        let thumbnailURL = URL(string: thumbnailString)
+        if let thumbnailData = try? Data(contentsOf: thumbnailURL!) {
+            thumbnailImageView.image = UIImage(data: thumbnailData)
+        }
+        titleLabel.text = movie.original_title
+        yearLabel.text = String((movie.release_date?.prefix(4))!)
+        ratingLabel.text = "\(movie.vote_average!)"
+        plotLabel.text = movie.overview
+        handleFavButtonState()
+        
+    }
+    
+    func updateID(id: String){
+        self.id = id
     }
     
 }
