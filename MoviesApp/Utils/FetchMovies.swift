@@ -90,6 +90,27 @@ class FetchMovies {
             }
         }.resume()
     }
+    
+    
+    func getReviewsByID(id: String, completion: @escaping ([Review]) -> Void) {
+        let urlString = "https://api.themoviedb.org/3/movie/\(id)/reviews?api_key=\(Constants.API_KEY)&language=en-US"
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            do {
+                if let reviews = try JSONDecoder().decode(ReviewsApi.self, from: data).results {
+                    completion(reviews)
+                } else {
+                    completion([Review]())
+                }
+            } catch {
+                completion([Review]())
+                debugPrint(error.localizedDescription)
+            }
+            }.resume()
+    }
 }
 
 

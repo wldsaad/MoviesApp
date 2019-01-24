@@ -27,6 +27,7 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     @IBOutlet weak var favButton: UIButton!
     
     @IBOutlet weak var trailersTableView: UITableView!
+    @IBOutlet weak var reviewsTableView: UITableView!
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -34,14 +35,18 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     private var selectedMovie: MyMovie?
     private var currentMovie: Movie?
     private var trailers = [Trailer]()
-    
+    private var reviews = [Review]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = movieTitle
         loadMovieByID(id: id!)
         loadTrailersByID(id: id!)
-        
+        loadReviewsByID(id: id!)
+        reviewsTableView.rowHeight = UITableView.automaticDimension
+        reviewsTableView.estimatedRowHeight = 400
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -67,6 +72,15 @@ class DetailVC: UIViewController, SelectMovieDelegate {
             self.trailers = trailers
             DispatchQueue.main.async {
                 self.trailersTableView.reloadData()
+            }
+        }
+    }
+    
+    private func loadReviewsByID(id: String) {
+        fetchMovies.getReviewsByID(id: id) { (reviews) in
+            self.reviews = reviews
+            DispatchQueue.main.async {
+                self.reviewsTableView.reloadData()
             }
         }
     }
@@ -153,11 +167,6 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         
     }
     
-    
-    @IBAction func playAction(_ sender: UIButton) {
-        debugPrint("Played...")
-    }
-    
     func selectMovie(id: Int, title: String, poster: String, thumbnail: String, vote: Double, plot: String, year: String) {
         self.id = String(id)
         self.movieTitle = title
@@ -199,6 +208,8 @@ extension DetailVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == trailersTableView {
             return trailers.count
+        } else if tableView == reviewsTableView {
+            return reviews.count
         }
         return 0
     }
@@ -207,11 +218,17 @@ extension DetailVC: UITableViewDataSource {
         if tableView == trailersTableView {
             if let trailerCell = trailersTableView.dequeueReusableCell(withIdentifier: "trailerCell", for: indexPath) as? TrailerCell {
                 if let movie = currentMovie {
-                    trailerCell.updateView(trailer: trailers[indexPath.row], imageURL: movie.backdrop_path!)
+                    trailerCell.updateView(trailer: trailers[indexPath.row], imageURL: movie.poster_path!)
                     return trailerCell
                 }
                 
             }
+        } else if tableView == reviewsTableView {
+            let reviewCell = reviewsTableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath)
+            reviewCell.textLabel?.text = reviews[indexPath.row].author
+            reviewCell.detailTextLabel?.text = reviews[indexPath.row].content
+            reviewCell.detailTextLabel?.numberOfLines = 20
+            return reviewCell
         }
         
         return UITableViewCell()
