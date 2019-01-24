@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.15" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.9"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TrailerXibView" customModule="MoviesApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oWS-Ef-S0n">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAk-9q-1aY">
+                    <rect key="frame" x="152.5" y="50" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="Nq5-k0-pFl"/>
+                        <constraint firstAttribute="width" secondItem="UAk-9q-1aY" secondAttribute="height" multiplier="1:1" id="bHf-UU-Jn4"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="play"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fpc-TC-3sO">
+                    <rect key="frame" x="0.0" y="140" width="375" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zYo-fJ-buY">
+                            <rect key="frame" x="8" y="8" width="359" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="zYo-fJ-buY" firstAttribute="leading" secondItem="Fpc-TC-3sO" secondAttribute="leading" constant="8" id="Qe8-MJ-uml"/>
+                        <constraint firstAttribute="height" constant="60" id="U2t-Ot-1Bf"/>
+                        <constraint firstItem="zYo-fJ-buY" firstAttribute="top" secondItem="Fpc-TC-3sO" secondAttribute="top" constant="8" id="U3n-on-rql"/>
+                        <constraint firstAttribute="trailing" secondItem="zYo-fJ-buY" secondAttribute="trailing" constant="8" id="ipK-Rg-1ev"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Fpc-TC-3sO" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="9bZ-D3-Up8"/>
+                <constraint firstItem="oWS-Ef-S0n" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Jo3-Vp-Xn6"/>
+                <constraint firstItem="Fpc-TC-3sO" firstAttribute="top" secondItem="UAk-9q-1aY" secondAttribute="bottom" constant="20" id="PXZ-dS-Vv5"/>
+                <constraint firstItem="oWS-Ef-S0n" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="PjM-wr-VNE"/>
+                <constraint firstItem="UAk-9q-1aY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aSW-Lm-dkJ"/>
+                <constraint firstItem="Fpc-TC-3sO" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="dU8-MI-sMC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="oWS-Ef-S0n" secondAttribute="bottom" id="hPf-aR-ezm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oWS-Ef-S0n" secondAttribute="trailing" id="zGw-Yk-rxH"/>
+                <constraint firstItem="Fpc-TC-3sO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="zoA-DC-yZY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="trailerImageView" destination="oWS-Ef-S0n" id="HfW-Bc-qsZ"/>
+                <outlet property="trailerPlayButton" destination="UAk-9q-1aY" id="7S9-ba-P24"/>
+                <outlet property="trailerTitleLabel" destination="zYo-fJ-buY" id="2RG-v5-Bux"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="336.43178410794604"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="play" width="512" height="512"/>
+    </resources>
+</document>

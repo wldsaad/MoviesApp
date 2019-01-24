@@ -67,6 +67,29 @@ class FetchMovies {
             
             }.resume()
     }
+    
+    
+    
+
+    func getTrailersByID(id: String, completion: @escaping ([Trailer]) -> Void) {
+        let urlString = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(Constants.API_KEY)&language=en-US"
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            do {
+                if let trailers = try JSONDecoder().decode(TrailersApi.self, from: data).results {
+                    completion(trailers)
+                } else {
+                    completion([Trailer]())
+                }
+            } catch {
+                completion([Trailer]())
+                debugPrint(error.localizedDescription)
+            }
+        }.resume()
+    }
 }
 
 

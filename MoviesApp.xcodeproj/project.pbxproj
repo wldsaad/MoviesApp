@@ -30,6 +30,10 @@
 		9A8F4A4921F9F67000794287 /* FavXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A8F4A4821F9F67000794287 /* FavXib.xib */; };
 		9A8F4A4B21F9F71F00794287 /* FavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F4A4A21F9F71F00794287 /* FavCell.swift */; };
 		9A8F4A4D21F9F7B200794287 /* FavXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F4A4C21F9F7B200794287 /* FavXibView.swift */; };
+		9AA23C3921FA527100CB7568 /* Trailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C3821FA527100CB7568 /* Trailer.swift */; };
+		9AA23C3B21FA559400CB7568 /* TrailerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C3A21FA559400CB7568 /* TrailerCell.swift */; };
+		9AA23C3D21FA55A400CB7568 /* TrailerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AA23C3C21FA55A400CB7568 /* TrailerXib.xib */; };
+		9AA23C3F21FA568200CB7568 /* TrailerXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C3E21FA568200CB7568 /* TrailerXibView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,10 @@
 		9A8F4A4821F9F67000794287 /* FavXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavXib.xib; sourceTree = "<group>"; };
 		9A8F4A4A21F9F71F00794287 /* FavCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCell.swift; sourceTree = "<group>"; };
 		9A8F4A4C21F9F7B200794287 /* FavXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavXibView.swift; sourceTree = "<group>"; };
+		9AA23C3821FA527100CB7568 /* Trailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trailer.swift; sourceTree = "<group>"; };
+		9AA23C3A21FA559400CB7568 /* TrailerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerCell.swift; sourceTree = "<group>"; };
+		9AA23C3C21FA55A400CB7568 /* TrailerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrailerXib.xib; sourceTree = "<group>"; };
+		9AA23C3E21FA568200CB7568 /* TrailerXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerXibView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,7 @@
 			children = (
 				9A3F1B2921F8BC3400715718 /* Section.swift */,
 				9A3F1B3321F8D62300715718 /* Movie.swift */,
+				9AA23C3821FA527100CB7568 /* Trailer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -122,6 +131,7 @@
 				9A3F1B2B21F8BCEC00715718 /* HeaderXibView.swift */,
 				9A3F1B2F21F8C7C600715718 /* MovieXibView.swift */,
 				9A8F4A4C21F9F7B200794287 /* FavXibView.swift */,
+				9AA23C3E21FA568200CB7568 /* TrailerXibView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,6 +152,7 @@
 				9A3F1B2521F8B92900715718 /* HeaderXib.xib */,
 				9A3F1B2D21F8C6FD00715718 /* MovieXib.xib */,
 				9A8F4A4821F9F67000794287 /* FavXib.xib */,
+				9AA23C3C21FA55A400CB7568 /* TrailerXib.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -153,6 +164,7 @@
 				9A3F1B2121F8B71E00715718 /* MyTableSectionCell.swift */,
 				9A3F1B2321F8B73800715718 /* MovieCell.swift */,
 				9A8F4A4A21F9F71F00794287 /* FavCell.swift */,
+				9AA23C3A21FA559400CB7568 /* TrailerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -232,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA23C3D21FA55A400CB7568 /* TrailerXib.xib in Resources */,
 				9A3F1B1221F8B5C800715718 /* LaunchScreen.storyboard in Resources */,
 				9A3F1B0F21F8B5C800715718 /* Assets.xcassets in Resources */,
 				9A3F1B2621F8B92900715718 /* HeaderXib.xib in Resources */,
@@ -248,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA23C3F21FA568200CB7568 /* TrailerXibView.swift in Sources */,
 				9A8F4A4D21F9F7B200794287 /* FavXibView.swift in Sources */,
 				9A3F1B0D21F8B5C700715718 /* MoviesApp.xcdatamodeld in Sources */,
 				9A3F1B2021F8B71000715718 /* MyTableRowCell.swift in Sources */,
@@ -261,9 +275,11 @@
 				9A3F1B0521F8B5C700715718 /* AppDelegate.swift in Sources */,
 				9A8F4A4B21F9F71F00794287 /* FavCell.swift in Sources */,
 				9A3F1B2221F8B71E00715718 /* MyTableSectionCell.swift in Sources */,
+				9AA23C3921FA527100CB7568 /* Trailer.swift in Sources */,
 				9A3F1B2C21F8BCEC00715718 /* HeaderXibView.swift in Sources */,
 				9A3F1B3021F8C7C600715718 /* MovieXibView.swift in Sources */,
 				9A8F4A4521F9F5B000794287 /* FavouritedMoviesVC.swift in Sources */,
+				9AA23C3B21FA559400CB7568 /* TrailerCell.swift in Sources */,
 				9A3F1B3221F8D4DB00715718 /* FetchMovies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -25,16 +25,22 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var plotLabel: UILabel!
     @IBOutlet weak var favButton: UIButton!
+    
+    @IBOutlet weak var trailersTableView: UITableView!
+    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    private let fetchMovies = FetchMovies()
     private var selectedMovie: MyMovie?
     private var currentMovie: Movie?
+    private var trailers = [Trailer]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = movieTitle
         loadMovieByID(id: id!)
+        loadTrailersByID(id: id!)
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +52,7 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     
     private func loadMovieByID(id: String) {
         
-        FetchMovies().getMovieByID(id: id) { (movie) in
+        fetchMovies.getMovieByID(id: id) { (movie) in
             self.currentMovie = movie
             DispatchQueue.main.async {
                 self.updateViews(movie: self.currentMovie!)
@@ -54,6 +60,15 @@ class DetailVC: UIViewController, SelectMovieDelegate {
             self.checkFav(id: id)
         }
         
+    }
+    
+    private func loadTrailersByID(id: String) {
+        fetchMovies.getTrailersByID(id: id) { (trailers) in
+            self.trailers = trailers
+            DispatchQueue.main.async {
+                self.trailersTableView.reloadData()
+            }
+        }
     }
     
     private func checkFav(id: String) {
@@ -177,4 +192,44 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         self.id = id
     }
     
+}
+
+
+extension DetailVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == trailersTableView {
+            return trailers.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == trailersTableView {
+            if let trailerCell = trailersTableView.dequeueReusableCell(withIdentifier: "trailerCell", for: indexPath) as? TrailerCell {
+                if let movie = currentMovie {
+                    trailerCell.updateView(trailer: trailers[indexPath.row], imageURL: movie.backdrop_path!)
+                    return trailerCell
+                }
+                
+            }
+        }
+        
+        return UITableViewCell()
+        
+    }
+    
+    
+}
+
+extension DetailVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == trailersTableView {
+            guard let key = trailers[indexPath.row].key else {
+                return
+            }
+            let youTubeString = "https://www.youtube.com/watch?v=" + key
+            let url = URL(string: youTubeString)
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        }
+    }
 }
