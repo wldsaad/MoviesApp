@@ -35,9 +35,6 @@
 		9AA23C3D21FA55A400CB7568 /* TrailerXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AA23C3C21FA55A400CB7568 /* TrailerXib.xib */; };
 		9AA23C3F21FA568200CB7568 /* TrailerXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C3E21FA568200CB7568 /* TrailerXibView.swift */; };
 		9AA23C4121FA65EC00CB7568 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C4021FA65EC00CB7568 /* Review.swift */; };
-		9AA23C4321FA672700CB7568 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C4221FA672700CB7568 /* ReviewCell.swift */; };
-		9AA23C4521FA673900CB7568 /* ReviewXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AA23C4421FA673900CB7568 /* ReviewXib.xib */; };
-		9AA23C4721FA67BB00CB7568 /* ReviewXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA23C4621FA67BB00CB7568 /* ReviewXibView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,9 +68,6 @@
 		9AA23C3C21FA55A400CB7568 /* TrailerXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrailerXib.xib; sourceTree = "<group>"; };
 		9AA23C3E21FA568200CB7568 /* TrailerXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerXibView.swift; sourceTree = "<group>"; };
 		9AA23C4021FA65EC00CB7568 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
-		9AA23C4221FA672700CB7568 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
-		9AA23C4421FA673900CB7568 /* ReviewXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewXib.xib; sourceTree = "<group>"; };
-		9AA23C4621FA67BB00CB7568 /* ReviewXibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewXibView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +135,6 @@
 				9A3F1B2F21F8C7C600715718 /* MovieXibView.swift */,
 				9A8F4A4C21F9F7B200794287 /* FavXibView.swift */,
 				9AA23C3E21FA568200CB7568 /* TrailerXibView.swift */,
-				9AA23C4621FA67BB00CB7568 /* ReviewXibView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,7 +156,6 @@
 				9A3F1B2D21F8C6FD00715718 /* MovieXib.xib */,
 				9A8F4A4821F9F67000794287 /* FavXib.xib */,
 				9AA23C3C21FA55A400CB7568 /* TrailerXib.xib */,
-				9AA23C4421FA673900CB7568 /* ReviewXib.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -176,7 +168,6 @@
 				9A3F1B2321F8B73800715718 /* MovieCell.swift */,
 				9A8F4A4A21F9F71F00794287 /* FavCell.swift */,
 				9AA23C3A21FA559400CB7568 /* TrailerCell.swift */,
-				9AA23C4221FA672700CB7568 /* ReviewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -259,7 +250,6 @@
 				9AA23C3D21FA55A400CB7568 /* TrailerXib.xib in Resources */,
 				9A3F1B1221F8B5C800715718 /* LaunchScreen.storyboard in Resources */,
 				9A3F1B0F21F8B5C800715718 /* Assets.xcassets in Resources */,
-				9AA23C4521FA673900CB7568 /* ReviewXib.xib in Resources */,
 				9A3F1B2621F8B92900715718 /* HeaderXib.xib in Resources */,
 				9A8F4A4921F9F67000794287 /* FavXib.xib in Resources */,
 				9A3F1B2E21F8C6FD00715718 /* MovieXib.xib in Resources */,
@@ -289,14 +279,12 @@
 				9A3F1B0521F8B5C700715718 /* AppDelegate.swift in Sources */,
 				9A8F4A4B21F9F71F00794287 /* FavCell.swift in Sources */,
 				9A3F1B2221F8B71E00715718 /* MyTableSectionCell.swift in Sources */,
-				9AA23C4721FA67BB00CB7568 /* ReviewXibView.swift in Sources */,
 				9AA23C3921FA527100CB7568 /* Trailer.swift in Sources */,
 				9A3F1B2C21F8BCEC00715718 /* HeaderXibView.swift in Sources */,
 				9A3F1B3021F8C7C600715718 /* MovieXibView.swift in Sources */,
 				9A8F4A4521F9F5B000794287 /* FavouritedMoviesVC.swift in Sources */,
 				9AA23C3B21FA559400CB7568 /* TrailerCell.swift in Sources */,
 				9A3F1B3221F8D4DB00715718 /* FetchMovies.swift in Sources */,
-				9AA23C4321FA672700CB7568 /* ReviewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

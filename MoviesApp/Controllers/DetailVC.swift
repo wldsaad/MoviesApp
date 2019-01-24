@@ -179,16 +179,25 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     
     private func updateViews(movie: Movie){
 
-        let posterString = "http://image.tmdb.org/t/p/w185/\(movie.poster_path!)"
-        let thumbnailString = "http://image.tmdb.org/t/p/w185/\(movie.backdrop_path!)"
-        let posterURL = URL(string: posterString)
-        if let posterData = try? Data(contentsOf: posterURL!) {
-            posterImageview.image = UIImage(data: posterData)
+        if let poster_path = movie.poster_path {
+            let posterString = "http://image.tmdb.org/t/p/w185/\(poster_path)"
+            let posterURL = URL(string: posterString)
+            if let posterData = try? Data(contentsOf: posterURL!) {
+                posterImageview.image = UIImage(data: posterData)
+            }
+        } else {
+            posterImageview.image = UIImage(named: "no_image")
         }
-        let thumbnailURL = URL(string: thumbnailString)
-        if let thumbnailData = try? Data(contentsOf: thumbnailURL!) {
-            thumbnailImageView.image = UIImage(data: thumbnailData)
+        if let backdrop_path = movie.backdrop_path {
+            let thumbnailString = "http://image.tmdb.org/t/p/w185/\(backdrop_path)"
+            let thumbnailURL = URL(string: thumbnailString)
+            if let thumbnailData = try? Data(contentsOf: thumbnailURL!) {
+                thumbnailImageView.image = UIImage(data: thumbnailData)
+            }
+        } else {
+            thumbnailImageView.image = UIImage(named: "no_image")
         }
+        
         titleLabel.text = movie.original_title
         yearLabel.text = String((movie.release_date?.prefix(4))!)
         ratingLabel.text = "\(movie.vote_average!)"
