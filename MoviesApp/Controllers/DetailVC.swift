@@ -9,15 +9,9 @@
 import UIKit
 import CoreData
 
-class DetailVC: UIViewController, SelectMovieDelegate {
+class DetailVC: UIViewController {
     
     private var id: String?
-    private var movieTitle: String?
-    private var poster: String?
-    private var thumbnail: String?
-    private var vote: String?
-    private var plot: String?
-    private var year: String?
     @IBOutlet weak var posterImageview: UIImageView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -40,7 +34,6 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = movieTitle
         loadMovieByID(id: id!)
         loadTrailersByID(id: id!)
         loadReviewsByID(id: id!)
@@ -167,15 +160,6 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         
     }
     
-    func selectMovie(id: Int, title: String, poster: String, thumbnail: String, vote: Double, plot: String, year: String) {
-        self.id = String(id)
-        self.movieTitle = title
-        self.poster = poster
-        self.thumbnail = thumbnail
-        self.vote = String(vote)
-        self.plot = plot
-        self.year = String(year.prefix(4))
-    }
     
     private func updateViews(movie: Movie){
 
@@ -197,7 +181,7 @@ class DetailVC: UIViewController, SelectMovieDelegate {
         } else {
             thumbnailImageView.image = UIImage(named: "no_image")
         }
-        
+        navigationItem.title = movie.original_title
         titleLabel.text = movie.original_title
         yearLabel.text = String((movie.release_date?.prefix(4))!)
         ratingLabel.text = "\(movie.vote_average!)"
@@ -209,6 +193,17 @@ class DetailVC: UIViewController, SelectMovieDelegate {
     func updateID(id: String){
         self.id = id
     }
+    
+    @IBAction func shareAction(_ sender: UIBarButtonItem) {
+        guard let movie = currentMovie else {
+            return
+        }
+        if let title = movie.original_title, let vote = movie.vote_average, let plot = movie.overview {
+           let shareController = UIActivityViewController(activityItems: [title, vote, plot], applicationActivities: nil)
+            self.present(shareController, animated: true, completion: nil)
+        }
+    }
+    
     
 }
 

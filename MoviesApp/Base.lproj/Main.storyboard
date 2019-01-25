@@ -153,7 +153,7 @@
             </objects>
             <point key="canvasLocation" x="1072.8" y="893.70314842578716"/>
         </scene>
-        <!--DetailVC-->
+        <!--Title-->
         <scene sceneID="KvL-uc-TnD">
             <objects>
                 <viewController id="0NG-NO-hxG" customClass="DetailVC" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -348,6 +348,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dxq-Bd-s8u"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="RFC-pV-ZMj">
+                        <barButtonItem key="rightBarButtonItem" image="share" id="Aw9-4C-Cyi">
+                            <connections>
+                                <action selector="shareAction:" destination="0NG-NO-hxG" id="2jj-b9-C5K"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <size key="freeformSize" width="375" height="1800"/>
                     <connections>
                         <outlet property="favButton" destination="ytn-rj-Qgs" id="rE2-tg-bBT"/>
@@ -406,6 +413,7 @@
     </scenes>
     <resources>
         <image name="heart" width="512" height="512"/>
+        <image name="share" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Gby-Zw-Orj"/>
