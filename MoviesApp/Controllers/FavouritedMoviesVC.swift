@@ -65,6 +65,7 @@ extension FavouritedMoviesVC: UICollectionViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailVC = segue.destination as? DetailVC {
+            detailVC.navigationItem.title = (sender as! MyMovie).title
             detailVC.updateID(id: (sender as! MyMovie).id!)
         }
    }

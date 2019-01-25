@@ -181,7 +181,6 @@ class DetailVC: UIViewController {
         } else {
             thumbnailImageView.image = UIImage(named: "no_image")
         }
-        navigationItem.title = movie.original_title
         titleLabel.text = movie.original_title
         yearLabel.text = String((movie.release_date?.prefix(4))!)
         ratingLabel.text = "\(movie.vote_average!)"
@@ -200,6 +199,7 @@ class DetailVC: UIViewController {
         }
         if let title = movie.original_title, let vote = movie.vote_average, let plot = movie.overview {
            let shareController = UIActivityViewController(activityItems: [title, vote, plot], applicationActivities: nil)
+            shareController.popoverPresentationController?.sourceView = self.view
             self.present(shareController, animated: true, completion: nil)
         }
     }

@@ -207,6 +207,7 @@ extension MainVC: UICollectionViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailVC = segue.destination as? DetailVC {
+            detailVC.navigationItem.title = (sender as! Movie).original_title
             detailVC.updateID(id: "\((sender as! Movie).id!)")
         }
     }
