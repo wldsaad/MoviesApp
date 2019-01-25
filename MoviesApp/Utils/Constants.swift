@@ -14,5 +14,7 @@ struct Constants {
     static let ARABIC_LANGUAGE = "عربى"
     static let ENGLISH_LANGUAGE = "English"
     static let LANGUAGE_KEY = "langauge"
+    static let NO_INTERNET_CONNECTION_TITLE = "No Internet Connection"
+    static let NO_INTERNET_CONNECTION_MESSAGE = "Please turn on Wifi and retry"
 
 }

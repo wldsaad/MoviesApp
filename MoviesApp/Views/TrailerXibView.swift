@@ -10,15 +10,10 @@ import UIKit
 
 class TrailerXibView: UIView {
 
+    //movie trailer outlets
     @IBOutlet weak var trailerImageView: UIImageView!
     @IBOutlet weak var trailerTitleLabel: UILabel!
     @IBOutlet weak var trailerPlayButton: UIButton!
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    
 
 }

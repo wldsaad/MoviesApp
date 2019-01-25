@@ -10,6 +10,7 @@ import Foundation
 
 class FetchMovies {
     
+    //get movies array
     func getMovies(withURL url: String, completion: @escaping ([Movie]) -> Void) {
         var movies = [Movie]()
         let url = URL(string: url)
@@ -30,7 +31,7 @@ class FetchMovies {
         }.resume()
     }
     
-    
+    //get latest movie
     func getLatestMovie(withURL url: String, completion: @escaping (Movie) -> Void) {
         var movie = Movie()
         let url = URL(string: url)
@@ -49,6 +50,7 @@ class FetchMovies {
         }.resume()
     }
     
+    //get movie by its id
     func getMovieByID(id: String, completion: @escaping (Movie) -> Void) {
         var movie = Movie()
         let urlString = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Constants.API_KEY)&language=en-US"
@@ -68,9 +70,7 @@ class FetchMovies {
             }.resume()
     }
     
-    
-    
-
+    //get trailers
     func getTrailersByID(id: String, completion: @escaping ([Trailer]) -> Void) {
         let urlString = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(Constants.API_KEY)&language=en-US"
         let url = URL(string: urlString)
@@ -91,7 +91,7 @@ class FetchMovies {
         }.resume()
     }
     
-    
+    //get reviews
     func getReviewsByID(id: String, completion: @escaping ([Review]) -> Void) {
         let urlString = "https://api.themoviedb.org/3/movie/\(id)/reviews?api_key=\(Constants.API_KEY)&language=en-US"
         let url = URL(string: urlString)

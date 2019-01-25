@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 class DetailVC: UIViewController {
-    
-    private var id: String?
+
+    //MARK: - OUTLETS
     @IBOutlet weak var posterImageview: UIImageView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -19,18 +19,18 @@ class DetailVC: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var plotLabel: UILabel!
     @IBOutlet weak var favButton: UIButton!
-    
     @IBOutlet weak var trailersTableView: UITableView!
     @IBOutlet weak var reviewsTableView: UITableView!
-    
+    //MARK: - VARIABLES
+    private var id: String?
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     private let fetchMovies = FetchMovies()
     private var selectedMovie: MyMovie?
     private var currentMovie: Movie?
     private var trailers = [Trailer]()
     private var reviews = [Review]()
 
+    //MARK: - FUNCTIONS
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +47,7 @@ class DetailVC: UIViewController {
 
     }
     
-    
+    //LOAD MOVIE BY ITS ID
     private func loadMovieByID(id: String) {
         
         fetchMovies.getMovieByID(id: id) { (movie) in
@@ -60,6 +60,7 @@ class DetailVC: UIViewController {
         
     }
     
+    //LOAD TRAILERS
     private func loadTrailersByID(id: String) {
         fetchMovies.getTrailersByID(id: id) { (trailers) in
             self.trailers = trailers
@@ -69,6 +70,7 @@ class DetailVC: UIViewController {
         }
     }
     
+    //LOAD REVIEWS
     private func loadReviewsByID(id: String) {
         fetchMovies.getReviewsByID(id: id) { (reviews) in
             self.reviews = reviews
@@ -78,6 +80,7 @@ class DetailVC: UIViewController {
         }
     }
     
+    //CHECK IF THE MOVIE IN COREDATA AND CHANGE STATE OF FAV BUTTON ACCORDINGLY
     private func checkFav(id: String) {
         let request: NSFetchRequest<MyMovie> = MyMovie.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
@@ -102,6 +105,7 @@ class DetailVC: UIViewController {
         }
     }
     
+    //HANDLE FAV BUTTON STATE
     private func handleFavButtonState() {
         if selectedMovie != nil {
             self.favButton.tag = 1
@@ -112,9 +116,8 @@ class DetailVC: UIViewController {
         }
     }
     
+    //HANDLE FAV BUTTON TAPPED
     @IBAction func handleFavAction(_ sender: UIButton) {
-
-        
         if sender.tag == 1 {
             deleteMovie(movie: selectedMovie!)
             UIView.animate(withDuration: 0.3) {
@@ -136,10 +139,18 @@ class DetailVC: UIViewController {
             sender.tintColor = #colorLiteral(red: 1, green: 0.1857388616, blue: 0.5733950138, alpha: 1)
             sender.tag = 1
         }
-        
-        
     }
     
+    //SAVE MOVIE INTO CORE DATA
+    private func saveMovie(movie: MyMovie){
+        do {
+            try context.save()
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+    }
+    
+    //DELETE MOVIE FROM CORE DATA
     private func deleteMovie(movie: MyMovie) {
         do {
             context.delete(movie)
@@ -147,22 +158,10 @@ class DetailVC: UIViewController {
         } catch {
             debugPrint(error.localizedDescription)
         }
-        
-       
     }
     
-    private func saveMovie(movie: MyMovie){
-        do {
-            try context.save()
-        } catch {
-            debugPrint(error.localizedDescription)
-        }
-        
-    }
-    
-    
+    //UPDATE VIEWS ONCE THE MOVIE FETCH FROM INTERNET
     private func updateViews(movie: Movie){
-
         if let poster_path = movie.poster_path {
             let posterString = "http://image.tmdb.org/t/p/w185/\(poster_path)"
             let posterURL = URL(string: posterString)
@@ -189,10 +188,12 @@ class DetailVC: UIViewController {
         
     }
     
+    //GET MOVIE ID FROM PREVIUS VIEWCONTROLLER
     func updateID(id: String){
         self.id = id
     }
     
+    //SHARE
     @IBAction func shareAction(_ sender: UIBarButtonItem) {
         guard let movie = currentMovie else {
             return
@@ -207,8 +208,10 @@ class DetailVC: UIViewController {
     
 }
 
-
+//MARK: - EXTENSIONS
+//MARK: - TABLEVIEW DATA SOURCE EXTENSION
 extension DetailVC: UITableViewDataSource {
+    //NUMBER OF ROWS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == trailersTableView {
             return trailers.count
@@ -217,7 +220,7 @@ extension DetailVC: UITableViewDataSource {
         }
         return 0
     }
-    
+    //CELL
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == trailersTableView {
             if let trailerCell = trailersTableView.dequeueReusableCell(withIdentifier: "trailerCell", for: indexPath) as? TrailerCell {
@@ -241,8 +244,9 @@ extension DetailVC: UITableViewDataSource {
     
     
 }
-
+//MARK: - TABLEVIEW DELEGATE EXTENSION
 extension DetailVC: UITableViewDelegate {
+    //DID SELECT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == trailersTableView {
             guard let key = trailers[indexPath.row].key else {

@@ -10,6 +10,7 @@ import UIKit
 
 class HeaderXibView: UIView {
 
+    //headers outlets
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var expandButton: UIButton!
     

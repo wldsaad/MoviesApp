@@ -10,6 +10,7 @@ import UIKit
 
 class MovieXibView: UIView {
 
+    //movie image outlet in collection view
     @IBOutlet weak var movieImageView: UIImageView!
     
 

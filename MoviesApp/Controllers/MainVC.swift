@@ -10,13 +10,16 @@ import UIKit
 
 class MainVC: UIViewController {
     
+    //MARK:- OUTLETS
     @IBOutlet weak var tableView: UITableView!
-    @IBAction func UNWIND(segue: UIStoryboardSegue) {
-    }
     @IBOutlet weak var changeLanguageButton: UIBarButtonItem!
     @IBOutlet weak var favoritesButton: UIBarButtonItem!
+    //UNWIND SEGUE TO MAIN VC
+    @IBAction func UNWIND(segue: UIStoryboardSegue) {
+    }
+    //MARK:- VARIABLES
+    private var errorAlert: UIAlertController?
     private var headerView: HeaderXibView?
-    
     private var fetchMovies = FetchMovies()
     private var isArabic = false
     private let popularURLString = "https://api.themoviedb.org/3/movie/popular?api_key=\(Constants.API_KEY)&language=en-US&page=1"
@@ -24,7 +27,6 @@ class MainVC: UIViewController {
     private let nowPlayingURLString = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(Constants.API_KEY)&language=en-US&page=1"
     private let topRatedURLString = "https://api.themoviedb.org/3/movie/top_rated?api_key=\(Constants.API_KEY)&language=en-US&page=1"
     private let latestURLString = "https://api.themoviedb.org/3/movie/latest?api_key=\(Constants.API_KEY)&language=en-US"
-
     private var sections = [
         Section(name: "Popular", isExpanded: true, movies: [Movie]()),
         Section(name: "Upcoming", isExpanded: false, movies: [Movie]()),
@@ -33,16 +35,51 @@ class MainVC: UIViewController {
         Section(name: "Latest", isExpanded: false, movies: [Movie]())
     ]
 
-    
+    //MARK:- FUNCTIONS
     override func viewDidLoad() {
         super.viewDidLoad()
-        getPopularMovies()
-        getUpcomingMovies()
-        getNowPlayingMovies()
-        getTopRatedMovies()
-        getLatestMovie()
         
-
+        if Reachability.isConnectedToNetwork() {
+            getPopularMovies()
+            getUpcomingMovies()
+            getNowPlayingMovies()
+            getTopRatedMovies()
+            getLatestMovie()
+        } else {
+            showAlertError(withTitle: Constants.NO_INTERNET_CONNECTION_TITLE, withMessageToShow: Constants.NO_INTERNET_CONNECTION_MESSAGE)
+        }
+        
+    }
+    
+    //Alert error dialog
+    private func showAlertError(withTitle title: String, withMessageToShow message: String){
+        errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let retryAction = UIAlertAction(title: "RETRY", style: .default) { (UIAlertAction) in
+            self.errorAlertBackgroundTapped()
+        }
+        errorAlert?.addAction(retryAction)
+        //        present(errorAlert, animated: true, completion: nil)
+        present(errorAlert!, animated: true) {
+            // Enabling Interaction for Transperent Full Screen Overlay
+            self.errorAlert?.view.superview?.subviews.first?.isUserInteractionEnabled = true
+            
+            // Adding Tap Gesture to Overlay
+            self.errorAlert?.view.superview?.subviews.first?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.errorAlertBackgroundTapped)))
+        }
+    }
+    
+    @objc func errorAlertBackgroundTapped() {
+        if Reachability.isConnectedToNetwork() {
+            errorAlert?.dismiss(animated: true, completion: nil)
+            getPopularMovies()
+            getUpcomingMovies()
+            getNowPlayingMovies()
+            getTopRatedMovies()
+            getLatestMovie()
+        } else {
+            errorAlert?.dismiss(animated: true, completion: nil)
+            showAlertError(withTitle: Constants.NO_INTERNET_CONNECTION_TITLE, withMessageToShow: Constants.NO_INTERNET_CONNECTION_MESSAGE)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,12 +95,7 @@ class MainVC: UIViewController {
             }
         }
     }
-    
-    @IBAction func changeLanguageAction(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "settingsSegue", sender: nil)
-    }
-    
-    
+    //CHANGE ITEMS LANGUAGE BASED ON SAVE USER DEFAULTS
     private func changeLanguage(toLanguage language: String) {
         let path = Bundle.main.path(forResource: language, ofType: "lproj")
         let bundle = Bundle.init(path: path!)
@@ -71,6 +103,12 @@ class MainVC: UIViewController {
         favoritesButton.title = bundle!.localizedString(forKey: "favorites", value: nil, table: nil)
     }
     
+    //GO TO SETTINGS VC
+    @IBAction func changeLanguageAction(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "settingsSegue", sender: nil)
+    }
+    
+    //GET POPULAR MOVIES
     private func getPopularMovies(){
         fetchMovies.getMovies(withURL: popularURLString) { (movies) in
             let section = 0
@@ -81,6 +119,7 @@ class MainVC: UIViewController {
         }
     }
     
+    //GET UPCOMING MOVIES
     private func getUpcomingMovies(){
         fetchMovies.getMovies(withURL: upcomingURLString) { (movies) in
             let section = 1
@@ -91,6 +130,7 @@ class MainVC: UIViewController {
         }
     }
 
+    //GET NOW PLAYING MOVIES
     private func getNowPlayingMovies(){
         fetchMovies.getMovies(withURL: nowPlayingURLString) { (movies) in
             let section = 2
@@ -101,6 +141,7 @@ class MainVC: UIViewController {
         }
     }
     
+    //GET TOP RATED MOVIES
     private func getTopRatedMovies(){
         fetchMovies.getMovies(withURL: topRatedURLString) { (movies) in
             let section = 3
@@ -111,6 +152,7 @@ class MainVC: UIViewController {
         }
     }
     
+    //GET LATEST MOVIE
     private func getLatestMovie(){
         fetchMovies.getLatestMovie(withURL: latestURLString) { (movie) in
             let section = 4
@@ -121,10 +163,12 @@ class MainVC: UIViewController {
         }
     }
     
+    //GO TO FAVORITE VC
     @IBAction func showFavoritesAction(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "favSegue", sender: nil)
     }
     
+    //PREPARE FOR SEQUES
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailVC = segue.destination as? DetailVC {
             detailVC.navigationItem.title = (sender as! Movie).original_title
@@ -136,32 +180,37 @@ class MainVC: UIViewController {
     
 }
 
+//MARK: - EXTENSIONS
+//MARK: - TABLE VIEW DATA SOURCE EXTENSION
 extension MainVC: UITableViewDataSource {
+    //NUMBER OF SECTIONS
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
+    //NUMBER OF ROWS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sections[section].isExpanded {
             return 1
         }
         return 0
     }
-    
+    //CELL FOR ROW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "myRowCell", for: indexPath) as? MyTableRowCell {
-            
             return cell
         }
         return MyTableRowCell()
     }
     
 }
-
+//MARK: - TABLE VIEW DELEGATE EXTENSION
 extension MainVC: UITableViewDelegate {
+    //VIEW FOR HEADER
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return initSectionHeaderView(withSection: section)
     }
     
+    //INITIALIZE HEADER VIEW
     private func initSectionHeaderView(withSection section: Int) -> UIView{
         headerView = Bundle.main.loadNibNamed("HeaderXib", owner: self, options: nil)?.first as? HeaderXibView
         headerView?.nameLabel.text = sections[section].name
@@ -174,6 +223,7 @@ extension MainVC: UITableViewDelegate {
         return HeaderXibView()
     }
     
+    //HANDLE EXPAND/COLLAPSE TOGGLE
     @objc private func expandToggle(expandButton: UIButton){
         let currentSection = expandButton.tag
         let indexPath = IndexPath(row: 0, section: currentSection)
@@ -186,10 +236,13 @@ extension MainVC: UITableViewDelegate {
         let currentIndexSet = IndexSet(arrayLiteral: currentSection)
         tableView.reloadSections(currentIndexSet, with: .none)
     }
+    
+    //HEIGHT FOR HEADER
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return Constants.SECTION_HEIGHT
     }
     
+    //WILL DISPLAY CELL
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? MyTableRowCell else {
             return
@@ -199,7 +252,10 @@ extension MainVC: UITableViewDelegate {
     }
 }
 
+//MARK: - COLLECTION VIEW DATA SOURCE EXTENSION
 extension MainVC: UICollectionViewDataSource {
+    
+    //NUMBER OF ITEMS IN EACH SECTION
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
             return sections[0].movies.count
@@ -216,6 +272,7 @@ extension MainVC: UICollectionViewDataSource {
         }
     }
     
+    //CELL
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as? MovieCell {
             if collectionView.tag == 0 {
@@ -236,13 +293,17 @@ extension MainVC: UICollectionViewDataSource {
     }
 }
 
+//MARK: - COLLECTION VIEW DELEGATE EXTENSION
 extension MainVC: UICollectionViewDelegate {
+    
+    //DID SELECT
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = sections[collectionView.tag].movies[indexPath.row]
         performSegue(withIdentifier: "detailSegue", sender: movie)
     }
 }
 
+//MARK: - COLLECTION VIEW FLOWLAYOUT DELEGATE EXTENSION
 extension MainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 3, height: 140)

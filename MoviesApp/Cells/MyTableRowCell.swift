@@ -12,7 +12,7 @@ class MyTableRowCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-
+    //initialize collection view inside table cell
     func initCollectionView<DataSource: UICollectionViewDataSource, Delegate: UICollectionViewDelegate>(dataSource: DataSource, delegate: Delegate, forSection section: Int) {
         
         collectionView.dataSource = dataSource

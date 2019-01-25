@@ -10,6 +10,7 @@ import UIKit
 
 class FavXibView: UIView {
 
+    //movie image and label outlets in fav vc
     @IBOutlet weak var movieImageview: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     

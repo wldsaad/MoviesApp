@@ -17,6 +17,7 @@ class TrailerCell: UITableViewCell {
         initView()
     }
 
+    //initialize trailer xib
     private func initView(){
         trailerView = Bundle.main.loadNibNamed("TrailerXib", owner: self, options: nil)?.first as? TrailerXibView
         trailerView?.frame = self.frame
@@ -25,6 +26,7 @@ class TrailerCell: UITableViewCell {
         }
     }
     
+    //update trailer xib
     func updateView(trailer: Trailer, imageURL: String) {
         trailerView?.trailerTitleLabel.text = trailer.name
         let imageURLString = "http://image.tmdb.org/t/p/w185/\(imageURL)"
@@ -35,9 +37,6 @@ class TrailerCell: UITableViewCell {
                 } catch {
                     debugPrint(error.localizedDescription)
                 }
-                
             }
-        
-        
     }
 }

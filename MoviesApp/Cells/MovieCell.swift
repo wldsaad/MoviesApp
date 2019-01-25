@@ -16,6 +16,7 @@ class MovieCell: UICollectionViewCell {
         initCell()
     }
     
+    //initialize movie xib
     private func initCell() {
         movieView = Bundle.main.loadNibNamed("MovieXib", owner: self, options: nil)?.first as? MovieXibView
         movieView?.frame = self.frame
@@ -24,6 +25,7 @@ class MovieCell: UICollectionViewCell {
         }
     }
     
+    //update movie xib
     func updateCellView(movie: Movie) {
         guard let moviePosterPath = movie.poster_path else {
             return
@@ -33,7 +35,6 @@ class MovieCell: UICollectionViewCell {
         if let imageData = try? Data(contentsOf: imageURL!) {
             self.movieView?.movieImageView.image = UIImage(data: imageData)
         }
-        
     }
     
 }

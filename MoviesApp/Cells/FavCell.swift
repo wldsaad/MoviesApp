@@ -17,6 +17,7 @@ class FavCell: UICollectionViewCell {
         initView()
     }
     
+    //initialize fav xib
     private func initView(){
         favView = Bundle.main.loadNibNamed("FavXib", owner: self, options: nil)?.first as? FavXibView
         favView?.frame = self.frame
@@ -25,6 +26,7 @@ class FavCell: UICollectionViewCell {
         }
     }
     
+    //update fav xib
     func updateView(movie: MyMovie){
         favView?.movieTitleLabel.text = movie.title
         if let poster = movie.image {
