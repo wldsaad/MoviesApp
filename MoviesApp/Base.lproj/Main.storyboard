@@ -10,6 +10,49 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Title-->
+        <scene sceneID="odX-sz-PVz">
+            <objects>
+                <viewController id="OYC-64-uqo" customClass="SettingsVC" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gyi-Hc-dlx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4Y-Sj-bf6">
+                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="L0t-zT-7Zw"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="OYC-64-uqo" id="Ksr-lG-PgS"/>
+                                    <outlet property="delegate" destination="OYC-64-uqo" id="pP5-kg-mFR"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="n4Y-Sj-bf6" firstAttribute="leading" secondItem="uri-K7-tYa" secondAttribute="leading" id="2oJ-Xz-qQn"/>
+                            <constraint firstItem="n4Y-Sj-bf6" firstAttribute="trailing" secondItem="uri-K7-tYa" secondAttribute="trailing" id="NZp-iu-JmA"/>
+                            <constraint firstItem="n4Y-Sj-bf6" firstAttribute="top" secondItem="uri-K7-tYa" secondAttribute="top" id="Ts1-Xn-fBP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uri-K7-tYa"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="Gpa-vk-2uc">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="ARj-VH-30T">
+                            <connections>
+                                <action selector="saveAction:" destination="OYC-64-uqo" id="FNt-0W-ntR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="pickerView" destination="n4Y-Sj-bf6" id="mnb-c5-8l6"/>
+                        <outlet property="saveButton" destination="ARj-VH-30T" id="J9T-6W-UUv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wRT-EU-RQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2201" y="-756"/>
+        </scene>
         <!--IMDB-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -78,6 +121,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="IMDB" id="94B-Il-pTZ">
+                        <barButtonItem key="leftBarButtonItem" title="Change Language" id="rIM-yV-uJE">
+                            <connections>
+                                <action selector="changeLanguageAction:" destination="BYZ-38-t0r" id="hRw-dF-m40"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Favorites" id="ko1-lv-jZa">
                             <connections>
                                 <action selector="showFavoritesAction:" destination="BYZ-38-t0r" id="ZQC-kt-sFw"/>
@@ -85,9 +133,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="changeLanguageButton" destination="rIM-yV-uJE" id="TYN-tH-4s9"/>
+                        <outlet property="favoritesButton" destination="ko1-lv-jZa" id="cbD-dS-biN"/>
                         <outlet property="tableView" destination="8WQ-ur-dwJ" id="QFZ-1T-sPm"/>
                         <segue destination="0NG-NO-hxG" kind="show" identifier="detailSegue" id="WaD-RB-PJQ"/>
                         <segue destination="n2Q-jl-lju" kind="show" identifier="favSegue" id="3sK-vo-MSQ"/>
+                        <segue destination="OYC-64-uqo" kind="show" identifier="settingsSegue" id="rgd-UJ-tDK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -137,13 +188,14 @@
                         <viewLayoutGuide key="safeArea" id="K1l-0h-G6x"/>
                     </view>
                     <navigationItem key="navigationItem" id="Vsu-t7-J8V">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kLd-Yt-DQ4">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="kLd-Yt-DQ4">
                             <connections>
                                 <segue destination="zjX-oc-D5J" kind="unwind" unwindAction="UNWINDWithSegue:" id="Rqv-CI-yYC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="kLd-Yt-DQ4" id="ZOS-JT-qQE"/>
                         <outlet property="collectionView" destination="BPs-YW-mfj" id="KHi-uE-lGM"/>
                         <segue destination="0NG-NO-hxG" kind="show" identifier="detailSegueFromFav" id="Gby-Zw-Orj"/>
                     </connections>

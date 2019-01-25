@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  MoviesApp
+
+  Created by Waleed Saad on 1/25/19.
+  Copyright © 2019 Waleed Saad. All rights reserved.
+*/
+favorites = "Favorites";
+changeLanguage = "Change Language";
+saveButton = "Save";
+cancelButton = "Cancel";

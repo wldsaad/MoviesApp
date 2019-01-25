@@ -12,6 +12,7 @@ import CoreData
 class FavouritedMoviesVC: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var favMovies = [MyMovie]()
@@ -24,6 +25,26 @@ class FavouritedMoviesVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadFavMovies()
+        changeCancelButtonTitle()
+    }
+    
+    private func changeCancelButtonTitle() {
+        if let choosenLanguage = UserDefaults.standard.string(forKey: Constants.LANGUAGE_KEY) {
+            switch choosenLanguage {
+            case Constants.ENGLISH_LANGUAGE:
+                changeLanguage(toLanguage: "en")
+            case Constants.ARABIC_LANGUAGE:
+                changeLanguage(toLanguage: "ar")
+            default:
+                return
+            }
+        }
+    }
+    
+    private func changeLanguage(toLanguage language: String) {
+        let path = Bundle.main.path(forResource: language, ofType: "lproj")
+        let bundle = Bundle.init(path: path!)
+        cancelButton.title = bundle?.localizedString(forKey: "cancelButton", value: nil, table: nil)
     }
     
     private func loadFavMovies() {

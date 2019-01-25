@@ -13,10 +13,12 @@ class MainVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBAction func UNWIND(segue: UIStoryboardSegue) {
     }
+    @IBOutlet weak var changeLanguageButton: UIBarButtonItem!
+    @IBOutlet weak var favoritesButton: UIBarButtonItem!
     private var headerView: HeaderXibView?
     
     private var fetchMovies = FetchMovies()
-    
+    private var isArabic = false
     private let popularURLString = "https://api.themoviedb.org/3/movie/popular?api_key=\(Constants.API_KEY)&language=en-US&page=1"
     private let upcomingURLString = "https://api.themoviedb.org/3/movie/upcoming?api_key=\(Constants.API_KEY)&language=en-US&page=1"
     private let nowPlayingURLString = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(Constants.API_KEY)&language=en-US&page=1"
@@ -41,6 +43,32 @@ class MainVC: UIViewController {
         getLatestMovie()
         
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let choosenLanguage = UserDefaults.standard.string(forKey: Constants.LANGUAGE_KEY) {
+            switch choosenLanguage {
+            case Constants.ENGLISH_LANGUAGE:
+                self.changeLanguage(toLanguage: "en")
+            case Constants.ARABIC_LANGUAGE:
+                self.changeLanguage(toLanguage: "ar")
+            default:
+                return
+            }
+        }
+    }
+    
+    @IBAction func changeLanguageAction(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "settingsSegue", sender: nil)
+    }
+    
+    
+    private func changeLanguage(toLanguage language: String) {
+        let path = Bundle.main.path(forResource: language, ofType: "lproj")
+        let bundle = Bundle.init(path: path!)
+        changeLanguageButton.title = bundle!.localizedString(forKey: "changeLanguage", value: nil, table: nil)
+        favoritesButton.title = bundle!.localizedString(forKey: "favorites", value: nil, table: nil)
     }
     
     private func getPopularMovies(){
@@ -95,6 +123,15 @@ class MainVC: UIViewController {
     
     @IBAction func showFavoritesAction(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "favSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailVC = segue.destination as? DetailVC {
+            detailVC.navigationItem.title = (sender as! Movie).original_title
+            detailVC.updateID(id: "\((sender as! Movie).id!)")
+        } else if let settingsVC = segue.destination as? SettingsVC {
+            settingsVC.navigationItem.title = "Settings"
+        }
     }
     
 }
@@ -204,15 +241,6 @@ extension MainVC: UICollectionViewDelegate {
         let movie = sections[collectionView.tag].movies[indexPath.row]
         performSegue(withIdentifier: "detailSegue", sender: movie)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailVC = segue.destination as? DetailVC {
-            detailVC.navigationItem.title = (sender as! Movie).original_title
-            detailVC.updateID(id: "\((sender as! Movie).id!)")
-        }
-    }
-    
-    
 }
 
 extension MainVC: UICollectionViewDelegateFlowLayout {

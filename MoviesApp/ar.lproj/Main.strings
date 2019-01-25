@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "1ke-79-A1L"; */
+"1ke-79-A1L.text" = "Title";
+
+/* Class = "UILabel"; text = "Trailers:"; ObjectID = "85f-LQ-9sB"; */
+"85f-LQ-9sB.text" = "Trailers:";
+
+/* Class = "UINavigationItem"; title = "IMDB"; ObjectID = "94B-Il-pTZ"; */
+"94B-Il-pTZ.title" = "IMDB";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "F0h-6x-DzS"; */
+"F0h-6x-DzS.text" = "Subtitle";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "RFC-pV-ZMj"; */
+"RFC-pV-ZMj.title" = "Title";
+
+/* Class = "UILabel"; text = "Plot"; ObjectID = "VPj-OM-5Ku"; */
+"VPj-OM-5Ku.text" = "Plot";
+
+/* Class = "UILabel"; text = "Reviews:"; ObjectID = "bdF-Rt-dkA"; */
+"bdF-Rt-dkA.text" = "Reviews:";
+
+/* Class = "UIBarButtonItem"; title = "Favorites"; ObjectID = "ko1-lv-jZa"; */
+"ko1-lv-jZa.title" = "Favorites";
+
+/* Class = "UILabel"; text = "/10"; ObjectID = "nBI-0m-cn2"; */
+"nBI-0m-cn2.text" = "/10";
